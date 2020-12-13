@@ -14,51 +14,48 @@ impl ListNode {
     }
 }
 
-pub fn set_next(list: &mut Option<Box<ListNode>>, next: Option<Box<ListNode>>) {
-    if let Some(node) = list {
-        node.next = next;
-    }
-}
-
-pub fn set_val(list: &mut Option<Box<ListNode>>, val: i32) {
-    if let Some(node) = list {
-        node.val = val;
-    }
-}
-
 pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut l1 = &l1;
     let mut l2 = &l2;
 
-    let mut head = Some(Box::new(ListNode::new(0)));
+    let mut head = None;
     let mut rem = 0;
-    let mut curr = &mut head;
+    let mut tail = &mut head;
 
     while l1.is_some() || l2.is_some() {
-        let d1 = match &l1 {
-            Some(d) => d.val,
-            None => 0
+        let d1 = match l1 {
+            None => 0,
+            Some(ref d) => d.val,
         };
-        let d2 = match &l2 {
-            Some(d) => d.val,
-            None => 0
+        let d2 = match l2 {
+            None => 0,
+            Some(ref d) => d.val,
         };
         let sum = d1 + d2 + rem;
         let val = sum % 10;
         rem = sum / 10;
-        set_val(curr, val);
-        if let Some(l) = l1 {
-            l1 = &l.next;
+
+        let node = Some(Box::new(ListNode::new(val)));
+        match tail {
+            None => {
+                head = node;
+                tail = &mut head;
+            }
+            Some(n) => {
+                n.next = node;
+                tail = &mut n.next;
+            }
         }
-        if let Some(l) = l2 {
-            l2 = &l.next;
+
+        if let Some(d) = l1 {
+            l1 = &d.next;
         }
-        if l1.is_some() || l2.is_some() {
-            set_next(curr, Some(Box::new(ListNode::new(0))));
-            curr = &mut curr.as_mut().unwrap().next;
-        } else if rem != 0 {
-            set_next(curr, Some(Box::new(ListNode::new(1))));
+        if let Some(d) = l2 {
+            l2 = &d.next;
         }
+    }
+    if rem != 0 {
+        tail.as_mut().map(|node| node.next = Some(Box::new(ListNode::new(rem))));
     }
 
     head

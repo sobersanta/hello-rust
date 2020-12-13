@@ -2,13 +2,21 @@ use exercises::list_nums::{self, ListNode};
 
 mod exercises;
 
+impl ListNode {
+    #[inline]
+    pub fn new_full(val: i32, next: Option<Box<ListNode>>) -> Self {
+        ListNode {
+            val,
+            next,
+        }
+    }
+}
+
 fn to_list(a: &[i32]) -> Option<Box<ListNode>> {
     if a.len() == 0 {
         None
     } else {
-        let mut list = Some(Box::new(ListNode::new(a[0])));
-        list_nums::set_next(&mut list, to_list(&a[1..]));
-        list
+        Some(Box::new(ListNode::new_full(a[0], to_list(&a[1..]))))
     }
 }
 
