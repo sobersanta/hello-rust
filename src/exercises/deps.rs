@@ -50,7 +50,7 @@ pub fn run_deps_manager() {
     }
 }
 
-fn print_department(department: &String, employees: &Vec<String>) {
+fn print_department(department: &str, employees: &Vec<String>) {
     println!("{}:", department);
     for employee in employees {
         println!("    {}", employee);
