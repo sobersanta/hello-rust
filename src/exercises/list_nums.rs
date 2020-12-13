@@ -14,6 +14,27 @@ impl ListNode {
     }
 }
 
+fn to_list(a: &[i32]) -> Option<Box<ListNode>> {
+    if a.len() == 0 {
+        None
+    } else {
+        Some(Box::new(ListNode::new_full(a[0], to_list(&a[1..]))))
+    }
+}
+
+fn print_list(list: &Option<Box<ListNode>>) {
+    print!("[");
+    let mut l = list;
+    while let Some(n) = l {
+        if l != list {
+            print!(",");
+        }
+        print!("{}", n.val);
+        l = &n.next;
+    }
+    print!("]");
+}
+
 pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut l1 = l1;
     let mut l2 = l2;
