@@ -3,10 +3,6 @@
 // so “first” becomes “irst-fay.”
 // Words that start with a vowel have “hay” added to the end instead (“apple” becomes “apple-hay”).
 // Keep in mind the details about UTF-8 encoding!
-pub fn test_pig_latin() {
-    println!("first -> {}", word_to_pig_latin("first"));
-    println!("apple -> {}", word_to_pig_latin("apple"));
-}
 
 pub fn word_to_pig_latin(string: &str) -> String {
     if string.len() < 2 {
@@ -26,3 +22,6 @@ pub fn word_to_pig_latin(string: &str) -> String {
         result
     };
 }
+
+#[cfg(test)]
+mod tests;

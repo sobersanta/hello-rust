@@ -4,14 +4,6 @@
 // and mode (the value that occurs most often; a hash map will be helpful here) of the list.
 use std::collections::HashMap;
 
-pub fn test() {
-    let values: Vec<i64> = vec![1, 100, 2, 200, 3, 300, 5, 4, 6, 9, 8, 0, 9];
-    println!("Mean using dump algo: {:?}", mean_dumb(&values));
-    println!("Mean using incremental algo: {:?}", mean_incremental(&values));
-    println!("Median: {:?}", median(&values));
-    println!("Mode: {:?}", mode(&values));
-}
-
 pub fn mode(values: &Vec<i64>) -> Option<i64> {
     if values.len() == 0 {
         return None;
@@ -30,7 +22,7 @@ pub fn mode(values: &Vec<i64>) -> Option<i64> {
     return Some(max);
 }
 
-fn median(values: &Vec<i64>) -> Option<i64> {
+pub fn median(values: &Vec<i64>) -> Option<i64> {
     if values.len() == 0 {
         return None;
     }
@@ -39,7 +31,7 @@ fn median(values: &Vec<i64>) -> Option<i64> {
     return Some(sorted_values[sorted_values.len() / 2]);
 }
 
-fn mean_dumb(values: &Vec<i64>) -> Option<f64> {
+pub fn mean_dumb(values: &Vec<i64>) -> Option<f64> {
     if values.len() == 0 {
         return None;
     }
@@ -50,7 +42,7 @@ fn mean_dumb(values: &Vec<i64>) -> Option<f64> {
     return Some(sum as f64 / (values.len() as f64));
 }
 
-fn mean_incremental(values: &Vec<i64>) -> Option<f64> {
+pub fn mean_incremental(values: &Vec<i64>) -> Option<f64> {
     if values.len() == 0 {
         return None;
     }
@@ -62,3 +54,6 @@ fn mean_incremental(values: &Vec<i64>) -> Option<f64> {
     }
     return Some(mean);
 }
+
+#[cfg(tests)]
+mod tests;
