@@ -4,3 +4,8 @@ pub mod collections;
 pub mod list_nums;
 pub mod length_of_longest_substring;
 pub mod reordered_power_of_two;
+pub mod cacher;
+pub mod range_bitwise_and;
+pub mod lemonade_change;
+pub mod unique_paths;
+pub mod is_robot_bounded;
