@@ -9,3 +9,6 @@ pub mod range_bitwise_and;
 pub mod lemonade_change;
 pub mod unique_paths;
 pub mod is_robot_bounded;
+pub mod detect_capital_use;
+pub mod increasing_subsequences;
+pub mod borrow_xxx;

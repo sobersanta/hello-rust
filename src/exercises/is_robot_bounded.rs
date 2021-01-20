@@ -56,7 +56,7 @@ impl Point {
 }
 
 const NORTH: Point = Point { x: 0, y: 1 };
-const ZERO: Point = Point { x: 0, y: 1 };
+const ZERO: Point = Point { x: 0, y: 0 };
 
 impl Solution {
     pub fn is_robot_bounded(instructions: String) -> bool {

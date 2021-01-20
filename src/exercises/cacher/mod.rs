@@ -1,9 +1,12 @@
 use std::collections::HashMap;
+use std::fmt::Debug;
 use std::hash::Hash;
 
+#[derive(Debug)]
 struct Cacher<T, V, R>
     where T: Fn(&V) -> R,
-          V: Eq + Hash + Copy
+          V: Eq + Hash + Copy + Debug,
+          R: Debug
 {
     calculation: T,
     values: HashMap<V, R>,
@@ -12,7 +15,8 @@ struct Cacher<T, V, R>
 impl<T, V, R> Cacher<T, V, R>
     where
         T: Fn(&V) -> R,
-        V: Eq + Hash + Copy
+        V: Eq + Hash + Copy + Debug,
+        R: Debug
 {
     fn new(calculation: T) -> Cacher<T, V, R> {
         Cacher {
@@ -22,8 +26,13 @@ impl<T, V, R> Cacher<T, V, R>
     }
 
     fn value(&mut self, arg: &V) -> &R {
-        let calc = &self.calculation;
-        self.values.entry(*arg).or_insert_with(|| (calc)(&arg))
+        let calculation = &self.calculation;
+        let x = self.values.entry(*arg).or_insert_with(move || {
+            let c = &*calculation;
+            c(arg)
+        });
+        let _ = (calculation)(arg);
+        x
     }
 }
 
